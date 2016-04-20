@@ -26,22 +26,227 @@ public class Main extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
+
+        entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("posdatabase?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
+        productsQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Products p");
+        productsList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productsQuery.getResultList();
+        customersQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM Customers c");
+        customersList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : customersQuery.getResultList();
+        customersQuery1 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT c FROM Customers c");
+        customersList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : customersQuery1.getResultList();
+        employeesQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT e FROM Employees e");
+        employeesList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : employeesQuery.getResultList();
+        productsQuery1 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Products p");
+        productsList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productsQuery1.getResultList();
+        productsQuery2 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Products p");
+        productsList2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productsQuery2.getResultList();
+        productsQuery3 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Products p");
+        productsList3 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productsQuery3.getResultList();
+        productsQuery4 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Products p");
+        productsList4 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productsQuery4.getResultList();
+        productsQuery5 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Products p");
+        productsList5 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productsQuery5.getResultList();
+        productsQuery6 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Products p");
+        productsList6 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productsQuery6.getResultList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableProducts = new javax.swing.JTable();
+        jTextFieldProductCode = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableSelectedProduct = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelDiscount = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabelTotal = new javax.swing.JLabel();
+        jLabelNet = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jButtonTotal = new javax.swing.JButton();
+        jButtonStartSale1 = new javax.swing.JButton();
+        jButtonLogOff = new javax.swing.JButton();
+        jLabelSaleNo = new javax.swing.JLabel();
+        jButtonSelect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, productsList6, jTableProducts);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productId}"));
+        columnBinding.setColumnName("Product Id");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productName}"));
+        columnBinding.setColumnName("Product Name");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productColor}"));
+        columnBinding.setColumnName("Product Color");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productSize}"));
+        columnBinding.setColumnName("Product Size");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productDescription}"));
+        columnBinding.setColumnName("Product Description");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productQuantity}"));
+        columnBinding.setColumnName("Product Quantity");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productPrice}"));
+        columnBinding.setColumnName("Product Price");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane2.setViewportView(jTableProducts);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(0, 50, 1112, 238);
+        getContentPane().add(jTextFieldProductCode);
+        jTextFieldProductCode.setBounds(0, 11, 260, 28);
+
+        jTableSelectedProduct.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Product Id", "Product Name", "Product Price"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableSelectedProduct);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 7, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 294, 684, 352);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("TOTAL :");
+
+        jLabelDiscount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelDiscount.setText("...");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setText("DISCOUNT :");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setText("NET :");
+
+        jLabelTotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelTotal.setText("...");
+
+        jLabelNet.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelNet.setText("...");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelTotal))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelNet)
+                            .addComponent(jLabelDiscount))))
+                .addContainerGap(240, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelTotal))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabelDiscount))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabelNet))
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(694, 294, 418, 350);
+
+        jButtonTotal.setText("TOTAL");
+
+        jButtonStartSale1.setText("START SALE");
+
+        jButtonLogOff.setText("LOG OFF");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonLogOff, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                    .addComponent(jButtonStartSale1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jButtonStartSale1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
+                .addComponent(jButtonLogOff, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(1122, 50, 252, 662);
+
+        jLabelSaleNo.setText("SALE NO. ");
+        getContentPane().add(jLabelSaleNo);
+        jLabelSaleNo.setBounds(400, 20, 101, 14);
+
+        jButtonSelect.setText("SELECT");
+        jButtonSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSelectActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonSelect);
+        jButtonSelect.setBounds(266, 11, 120, 28);
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSelectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +284,46 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.util.List<mdshop.Customers> customersList;
+    private java.util.List<mdshop.Customers> customersList1;
+    private javax.persistence.Query customersQuery;
+    private javax.persistence.Query customersQuery1;
+    private java.util.List<mdshop.Employees> employeesList;
+    private javax.persistence.Query employeesQuery;
+    private javax.persistence.EntityManager entityManager;
+    private javax.swing.JButton jButtonLogOff;
+    private javax.swing.JButton jButtonSelect;
+    private javax.swing.JButton jButtonStartSale1;
+    private javax.swing.JButton jButtonTotal;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelDiscount;
+    private javax.swing.JLabel jLabelNet;
+    private javax.swing.JLabel jLabelSaleNo;
+    private javax.swing.JLabel jLabelTotal;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableProducts;
+    private javax.swing.JTable jTableSelectedProduct;
+    private javax.swing.JTextField jTextFieldProductCode;
+    private java.util.List<mdshop.Products> productsList;
+    private java.util.List<mdshop.Products> productsList1;
+    private java.util.List<mdshop.Products> productsList2;
+    private java.util.List<mdshop.Products> productsList3;
+    private java.util.List<mdshop.Products> productsList4;
+    private java.util.List<mdshop.Products> productsList5;
+    private java.util.List<mdshop.Products> productsList6;
+    private javax.persistence.Query productsQuery;
+    private javax.persistence.Query productsQuery1;
+    private javax.persistence.Query productsQuery2;
+    private javax.persistence.Query productsQuery3;
+    private javax.persistence.Query productsQuery4;
+    private javax.persistence.Query productsQuery5;
+    private javax.persistence.Query productsQuery6;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
