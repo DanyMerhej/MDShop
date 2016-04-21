@@ -66,6 +66,7 @@ public class Main extends javax.swing.JFrame {
         jButtonTotal = new javax.swing.JButton();
         jButtonStartSale1 = new javax.swing.JButton();
         jButtonLogOff = new javax.swing.JButton();
+        jButtonLogOff1 = new javax.swing.JButton();
         jLabelSaleNo = new javax.swing.JLabel();
         jButtonSelect = new javax.swing.JButton();
 
@@ -194,11 +195,18 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(694, 294, 418, 350);
 
+        jButtonTotal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonTotal.setText("TOTAL");
 
+        jButtonStartSale1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonStartSale1.setText("START SALE");
 
+        jButtonLogOff.setBackground(new java.awt.Color(204, 0, 0));
+        jButtonLogOff.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonLogOff.setText("LOG OFF");
+
+        jButtonLogOff1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonLogOff1.setText("STOCK");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -209,7 +217,8 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonLogOff, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                    .addComponent(jButtonStartSale1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+                    .addComponent(jButtonStartSale1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                    .addComponent(jButtonLogOff1, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -218,7 +227,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jButtonStartSale1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE)
+                .addComponent(jButtonLogOff1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonLogOff, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -292,6 +303,7 @@ public class Main extends javax.swing.JFrame {
     private javax.persistence.Query employeesQuery;
     private javax.persistence.EntityManager entityManager;
     private javax.swing.JButton jButtonLogOff;
+    private javax.swing.JButton jButtonLogOff1;
     private javax.swing.JButton jButtonSelect;
     private javax.swing.JButton jButtonStartSale1;
     private javax.swing.JButton jButtonTotal;
