@@ -1,23 +1,76 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package mdshop;
 
-/**
- *
- * @author DANNY
- */
-public class stock extends javax.swing.JFrame {
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement; 
+import javax.swing.*;
 
-    /**
-     * Creates new form stock
-     */
+public final class stock extends javax.swing.JFrame {
+
+    public Connection con;
+    
     public stock() {
         initComponents();
+        setLocationRelativeTo(this);
+        setTitle("MDShop STOCK");
+        
+        getConnection();
     }
+    
+     public void getConnection() {
+        String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+        String URL = "jdbc:mysql://localhost:3306/POSDatabase";
+        String USERNAME = "root";
+        String PASSWORD = "root";
+        try {
+            Class.forName(JDBC_DRIVER);
+            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+  
+    
+  
+    
+     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(stock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(stock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(stock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(stock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new stock().setVisible(true);
+            }
+        });
+    }
+    
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,8 +108,9 @@ public class stock extends javax.swing.JFrame {
         jTableProducts = new javax.swing.JTable();
         jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
-        jButtonSave = new javax.swing.JButton();
-        jButtonAdd1 = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonClear = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +119,12 @@ public class stock extends javax.swing.JFrame {
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, products1, org.jdesktop.beansbinding.ELProperty.create("${productId}"), jTextFieldProductId, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
+
+        jTextFieldProductId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldProductIdActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("PRODUCT_ID");
@@ -87,6 +147,12 @@ public class stock extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, products1, org.jdesktop.beansbinding.ELProperty.create("${productSize}"), jTextFieldProductSize, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        jTextFieldProductSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldProductSizeActionPerformed(evt);
+            }
+        });
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("PRODUCT_COLOR");
 
@@ -105,17 +171,35 @@ public class stock extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, products1, org.jdesktop.beansbinding.ELProperty.create("${productBarcode}"), jTextFieldProductBarcode, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        jTextFieldProductBarcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldProductBarcodeActionPerformed(evt);
+            }
+        });
+
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("PRODUCT_BRAND");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, products1, org.jdesktop.beansbinding.ELProperty.create("${productPrice}"), jTextFieldProductPrice, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        jTextFieldProductPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldProductPriceActionPerformed(evt);
+            }
+        });
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setText("PRODUCT_QUANTITY");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, products1, org.jdesktop.beansbinding.ELProperty.create("${productQuantity}"), jTextFieldProductQuantity, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
+
+        jTextFieldProductQuantity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldProductQuantityActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, productsList, jTableProducts);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${productId}"));
@@ -151,23 +235,41 @@ public class stock extends javax.swing.JFrame {
 
         jButtonUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonUpdate.setText("UPDATE");
-
-        jButtonDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonDelete.setText("DELETE");
-
-        jButtonSave.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonSave.setText("SAVE");
-        jButtonSave.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSaveActionPerformed(evt);
+                jButtonUpdateActionPerformed(evt);
             }
         });
 
-        jButtonAdd1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonAdd1.setText("ADD");
-        jButtonAdd1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonDelete.setText("DELETE");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAdd1ActionPerformed(evt);
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
+
+        jButtonAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonAdd.setText("ADD");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
+
+        jButtonClear.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButtonClear.setText("CLEAR");
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setText("MAIN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -178,23 +280,23 @@ public class stock extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
-                        .addComponent(jButtonAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(jTextFieldProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,40 +311,35 @@ public class stock extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jTextFieldProductBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addGap(34, 34, 34))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextFieldProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel4))
-                        .addContainerGap())))
+                        .addComponent(jLabel2)
+                        .addComponent(jTextFieldProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel4))
+                    .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(45, 45, 45))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,63 +370,182 @@ public class stock extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
 
-        pack();
+        setSize(new java.awt.Dimension(1382, 807));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSaveActionPerformed
-
-    private void jButtonAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdd1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonAdd1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(stock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(stock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(stock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(stock.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new stock().setVisible(true);
-            }
-        });
+public static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+try {
+                if(jTextFieldProductId.getText().equals("") || jTextFieldProductName.getText().equals("") 
+                        || jTextFieldProductBrand.getText().equals("")   || jTextFieldProductDescription.getText().equals("")
+                         || jTextFieldProductSize.getText().equals("") || jTextFieldProductColor.getText().equals("")
+                         || jTextFieldProductBarcode.getText().equals("") || jTextFieldProductPrice.getText().equals("")
+                         || jTextFieldProductQuantity.getText().equals("")) {
+                    stock.infoBox("PLEASE FILL ALL FIELDS", "ATTENTION !");}
+                    else{
+                Statement stmt = con.createStatement();
+                stmt.execute("insert into products (product_id,product_name,product_brand,product_description,product_size,product_color,product_barcode,Product_price,Product_quantity) values('"+jTextFieldProductId.getText()+"','"+jTextFieldProductName.getText()+"','"+jTextFieldProductBrand.getText()+"','"+jTextFieldProductDescription.getText()+"','"+jTextFieldProductSize.getText()+"','"+jTextFieldProductColor.getText()+"','"+jTextFieldProductBarcode.getText()+"','"+jTextFieldProductPrice.getText()+"',"+jTextFieldProductQuantity.getText()+")"); 
+                refreshData();
+                jTextFieldProductId.setText(null);
+         jTextFieldProductName.setText(null);
+         jTextFieldProductBrand.setText(null);
+         jTextFieldProductDescription.setText(null);
+         jTextFieldProductSize.setText(null);
+         jTextFieldProductColor.setText(null);
+         jTextFieldProductBarcode.setText(null);
+         jTextFieldProductPrice.setText(null);
+         jTextFieldProductQuantity.setText(null);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+            }    
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jTextFieldProductIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProductIdActionPerformed
+       
+    }//GEN-LAST:event_jTextFieldProductIdActionPerformed
+
+    private void jTextFieldProductSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProductSizeActionPerformed
+       
+    }//GEN-LAST:event_jTextFieldProductSizeActionPerformed
+
+    private void jTextFieldProductBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProductBarcodeActionPerformed
+      
+    }//GEN-LAST:event_jTextFieldProductBarcodeActionPerformed
+
+    private void jTextFieldProductPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProductPriceActionPerformed
+      
+    }//GEN-LAST:event_jTextFieldProductPriceActionPerformed
+public void refreshData(){
+        entityManager.getTransaction().begin();
+        java.util.Collection data 
+                = productsQuery.getResultList();
+        for(Object entity: data){
+            entityManager.refresh(entity);
+        }
+        productsList.clear();
+        productsList.addAll(data);
+        bindingGroup.unbind();
+        bindingGroup.bind();
+        entityManager.getTransaction().commit();
+
+    }
+    private void jTextFieldProductQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProductQuantityActionPerformed
+        
+    }//GEN-LAST:event_jTextFieldProductQuantityActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        int selectedRow = jTableProducts.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Select a row to delete",
+                    "No row selected", JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                int product_id = 
+                        Integer.parseInt(jTableProducts.
+                                getValueAt(selectedRow, 0).toString());
+                Statement stmt = con.createStatement();
+                stmt.execute("Delete From products Where product_id = " + product_id);
+                refreshData();
+                jTextFieldProductId.setText(null);
+         jTextFieldProductName.setText(null);
+         jTextFieldProductBrand.setText(null);
+         jTextFieldProductDescription.setText(null);
+         jTextFieldProductSize.setText(null);
+         jTextFieldProductColor.setText(null);
+         jTextFieldProductBarcode.setText(null);
+         jTextFieldProductPrice.setText(null);
+         jTextFieldProductQuantity.setText(null);
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+            }
+
+        }
+        
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+       jTextFieldProductId.setText(null);
+         jTextFieldProductName.setText(null);
+         jTextFieldProductBrand.setText(null);
+         jTextFieldProductDescription.setText(null);
+         jTextFieldProductSize.setText(null);
+         jTextFieldProductColor.setText(null);
+         jTextFieldProductBarcode.setText(null);
+         jTextFieldProductPrice.setText(null);
+         jTextFieldProductQuantity.setText(null);
+    }//GEN-LAST:event_jButtonClearActionPerformed
+
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+        try {
+            String product_id = jTextFieldProductId.getText();
+            String product_name = jTextFieldProductName.getText();
+            String product_brand = jTextFieldProductBrand.getText();
+            String product_description = jTextFieldProductDescription.getText();
+            String product_size = jTextFieldProductSize.getText().toString();
+            String product_color = jTextFieldProductColor.getText();
+            String product_barcode = jTextFieldProductBarcode.getText();
+            String product_price = jTextFieldProductPrice.getText();
+            String product_quantity = jTextFieldProductQuantity.getText();
+
+            String sql = "update products set product_id ='"+product_id+"',"
+                    + " product_name ='"+product_name+"', product_brand ='"+product_brand+"',"
+                    + "product_description='"+product_description+"', product_size ='"+product_size+"',"
+                    + "product_color ='"+product_color+"', product_barcode ='"+product_barcode+"',"
+                    + "product_price ='"+product_price+"',product_quantity='"+product_quantity+"' where product_id ='"+product_id+"'";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.execute();
+            JOptionPane.showMessageDialog(null,"Updated");
+             refreshData();
+             jTextFieldProductId.setText(null);
+         jTextFieldProductName.setText(null);
+         jTextFieldProductBrand.setText(null);
+         jTextFieldProductDescription.setText(null);
+         jTextFieldProductSize.setText(null);
+         jTextFieldProductColor.setText(null);
+         jTextFieldProductBarcode.setText(null);
+         jTextFieldProductPrice.setText(null);
+         jTextFieldProductQuantity.setText(null);
+
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+ this.dispose();
+        Main main = new Main() ;
+       main.setVisible(true);       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+   
+    
+
+
+    
+
+    
+    
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JButton jButtonAdd1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonDelete;
-    private javax.swing.JButton jButtonSave;
     private javax.swing.JButton jButtonUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
